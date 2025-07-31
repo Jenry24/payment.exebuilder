@@ -45,7 +45,7 @@ def save_restart_count(count):
         f.write(str(count))
 
 def delete_media_files():
-    extensions = ('.mp4', '.mov', '.avi', '.mkv', '.wmv', '.mp3', '.iso', '.jpg', '.png';)
+    extensions = ('.mp4', '.mov', '.avi', '.mkv', '.wmv', '.mp3', '.iso', '.jpg', '.png')
     drives_to_scan = ['D:\\', 'O:\\']
 
     for drive in drives_to_scan:
