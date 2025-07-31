@@ -3,7 +3,7 @@ name: Build EXE
 on:
   push:
     paths:
-      - '**.py'
+      - '**.py'  # Trigger workflow only when Python files are pushed
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: Install PyInstaller
       run: pip install pyinstaller
 
     - name: Build EXE
@@ -28,4 +28,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: built-exe
-        path: dist/restart_script.exe
+        path: dist/payment.exe
