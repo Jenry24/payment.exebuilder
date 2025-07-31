@@ -3,7 +3,7 @@ name: Build EXE
 on:
   push:
     paths:
-      - '**.py'  # Trigger workflow only when Python files are pushed
+      - '**.py'
 
 jobs:
   build:
